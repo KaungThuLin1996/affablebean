@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+</head>
+<body class="bg-co">
+    <div class="container-fluid" style="background-color: #a0d3f8;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="#" th:src="@{/img/logo.jpg}" alt="Bean Logo" width="40" height="40" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Shop for
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a th:each="category : ${categories}" class="dropdown-item" href="#"
+                               th:href="@{'/category/' + ${category.id}}" th:text="${category.name}"></a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{${#request.requestURI} + '/cart'}">View Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{${#request.requestURI} + '/cart'}">
+                            <span><i class="fas fa-shopping-cart" aria-hidden="true"></i></span>
+                            <span class="badge badge-success align-top" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a th:each="category : ${categories}" role="tab"
+                       th:href="@{'/category/' + ${category.id}}" href="#"
+                       class="nav-link" th:classappend="${category.id == catId ? 'active' : ''}"
+                       th:attrappend="aria-selected=${category.id == catId ? 'true' : 'false'}"
+                       th:text="${category.name}"></a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price($)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="product : ${products}">
+                            <td>
+                                <img src="#" alt="#" th:src="@{'/product/' + ${product.id} + '/image'}"
+                                     th:alt="${product.name}" width="50" height="50" />
+                            </td>
+                            <td th:text="${product.name}"></td>
+                            <td th:text="${product.description}"></td>
+                            <td th:text="${product.price}"></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-success"
+                                        th:onclick="'addItemToDb(' + ${product.id} + ')'">Purchase</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/all.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
+</body>
+</html>

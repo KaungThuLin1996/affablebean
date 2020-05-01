@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+</head>
+<body class="bg-co" onload="requestProductToCheckout()">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <form th:object="${customer}" th:action="@{/cart/checkout}" method="post">
+                    <input type="hidden" id="gTotal" name="gTotal">
+                    <input type="hidden" id="cartItemListString" name="cartItemListString">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" th:field="*{phone}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" th:field="*{address}">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" th:field="*{city}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="region">Region</label>
+                            <select id="region" class="form-control" th:field="*{region}">
+                                <option th:each="regionOpt : ${T(com.shop.ecommerce.affablebean.enums.Region).values()}"
+                                        th:value="${regionOpt}" th:text="${regionOpt}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="ccNumber">CC Number</label>
+                            <input type="text" class="form-control" id="ccNumber" th:field="*{ccNumber}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-primary" href="#" th:href="@{'/category/' + ${catId} + '/cart'}" role="button">Cancel</a>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="purchase-box">
+                    <p>Your purchase conditions are as following:</p>
+                    <ul id="purchaseCond">
+
+                    </ul>
+                </div>
+                <div class="purchase-box mt-3">
+                    <p>Final cost will be calculated by [Total cost + Delivery charge]</p>
+                    <p id="purchaseCalc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/all.js}"></script>
+    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/checkout.js}"></script>
+</body>
+</html>

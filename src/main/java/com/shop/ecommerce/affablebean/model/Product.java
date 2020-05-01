@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "category"})
 public class Product implements Serializable {
 
     @Id
@@ -29,6 +29,10 @@ public class Product implements Serializable {
 
     @Column(name = "last_update")
     private LocalDate lastUpdate;
+
+    @Lob
+    @Column(name = "image")
+    private Byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -75,6 +79,14 @@ public class Product implements Serializable {
 
     public void setLastUpdate(LocalDate lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public Category getCategory() {

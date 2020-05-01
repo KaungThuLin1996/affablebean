@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+</head>
+<body class="bg-co" onload="clearDb()">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>The Affable Bean</h1>
+                <p>This order reference number is important. Please keep safety.</p>
+                <p th:text="${customerOrder.confirmationNumber}"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="purchase-box">
+                    <h4>Order Summary</h4>
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price($)</th>
+                                <th>Ordered Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="orderedProduct, iStat : ${orderedProducts}">
+                                <td th:text="${iStat.index + 1}"></td>
+                                <td th:text="${orderedProduct.product.name}"></td>
+                                <td th:text="${orderedProduct.quantity}"></td>
+                                <td th:text="${orderedProduct.product.price}"></td>
+                                <td th:text="${orderedProduct.customerOrder.dateCreated}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    Total Cost [including delivery cost]
+                                </td>
+                                <td th:text="${totalCost + 1.5}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="purchase-box">
+                    <h4>Customer Information</h4>
+                    <p th:text="${customer.name}"></p>
+                    <p th:text="${customer.email}"></p>
+                    <p th:text="${customer.phone}"></p>
+                    <p th:text="${customer.address}"></p>
+                    <p th:text="${customer.city}"></p>
+                    <p th:text="${customer.region}"></p>
+                    <p th:text="${customer.ccNumber}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <a class="btn btn-sm btn-primary" href="#" th:href="@{/}" role="button">Back to Home</a>
+            </div>
+        </div>
+    </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+<script th:src="@{/js/confirmation.js}"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("customerOrderService")
 public class CustomerOrderServiceImpl implements BaseService<CustomerOrder, Long> {
 
     private final CustomerOrderRepository repository;

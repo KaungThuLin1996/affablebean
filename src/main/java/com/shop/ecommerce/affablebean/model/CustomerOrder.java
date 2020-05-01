@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer_order")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "customer"})
 public class CustomerOrder implements Serializable {
 
     @Id
